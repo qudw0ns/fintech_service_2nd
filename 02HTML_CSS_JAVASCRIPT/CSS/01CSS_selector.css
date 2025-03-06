@@ -23,6 +23,7 @@ p {color: blue;}
 .strong {font-weight: bolder;}
 .graycolor {color: gray;}
 .browncolor {color: brown;}
+.strong.center.graycolor{font-size: 30px;}
 
 /* attribute(속성) src, href 셀렉터 */
 /* 태그 안의 속성을 찾음 */
