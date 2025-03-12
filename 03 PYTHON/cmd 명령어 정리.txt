@@ -1,0 +1,12 @@
+가상환경 = 폴더를 만드는 것
+콘다 활성화 : conda activate 가상환경명
+가상환경 만들기 : conda create -n 가상환경명 python=버전
+패키지 설치 : conda install 패키지명
+설치된 패키기 목록 보기 : conda list
+가상환경 목록 보기 : conda info --envs
+가상환경 삭제하기 : conda remove -n 가상환경명 --all
+jupyter notebook 작업 폴더 설정
+jupyter notebook --generate config
+jupyter_notebook_config.py 파일열기
+_dir에서 경로 바꾸기
+
