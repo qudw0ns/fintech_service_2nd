@@ -36,7 +36,7 @@ section:nth-of-type(4) article{transform: rotate(45deg);}
 .transform2 section:nth-of-type(4) article {transform: rotatez(-100deg);}
 
 
-/* 콘텐츠 모양을 자유롭게 변경하기기 */
+/* 콘텐츠 모양을 자유롭게 변경하기기3 중심축 변경 */
 .transform3 section{perspective: 600px;}
 
 .transform3 section:nth-of-type(1) article{transform: rotatey(120deg); transform-origin: center center;}
@@ -64,3 +64,6 @@ section:nth-of-type(4) article{transform: rotate(45deg);}
 
 /* ease-out: 처음 빠름 점점 느려짐 */
 .bar:nth-child(4){transition-timing-function: ease-out;}
+
+/* ease-in-out 처음 느림 중간 빠름 마지막 느림 */
+.bar:nth-child(5) {transition-timing-function: ease-in-out;}

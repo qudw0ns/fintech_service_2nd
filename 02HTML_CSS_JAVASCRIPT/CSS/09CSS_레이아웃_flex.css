@@ -39,6 +39,7 @@ flex-wrap: wrap;}
 /* align-content: first baseline */
 /* align-content: first baseline */
 
+/* 아이템을 각각 정렬 align-self */
 
 .flex-item{color: white; background-color: brown; border: 1px solid white;}
 
