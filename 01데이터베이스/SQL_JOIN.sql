@@ -1,0 +1,8 @@
+# 조건에 맞는 도서와 저자 리스트 출력하기
+SELECT BOOK_ID, AUTHOR_NAME, date_format(PUBLISHED_DATE, "%Y-%m-%d") as PUBLISHED_DATE 
+from BOOK left join AUTHOR 
+on BOOK.AUTHOR_ID = AUTHOR.AUTHOR_ID where CATEGORY = "경제" order by PUBLISHED_DATE asc;
+
+# 상품 별 오프라인 매출 구하기
+SELECT PRODUCT_CODE, sum(SALES_AMOUNT*PRICE) as SALES FROM PRODUCT P LEFT JOIN OFFLINE_SALE S
+ON P.PRODUCT_ID = S.PRODUCT_ID group by p.PRODUCT_ID order by SALES desc, PRODUCT_CODE asc;
