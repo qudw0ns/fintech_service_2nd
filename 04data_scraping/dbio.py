@@ -1,10 +1,7 @@
-import pandas as pd
 from sqlalchemy import create_engine
 import pymysql
 pymysql.install_as_MySQLdb()
-import requests
-from bs4 import BeautifulSoup as bs
-import time
+import pandas as pd
 from datetime import datetime
 
 def year_month():
@@ -22,21 +19,22 @@ def stock_codes():
     상장 회사의 종목 코드 6자리를 반환
     """
     conn = dbconnect()
-    data = pd.read_sql('stock_company_info_2025_04_07', con=conn)
+    data = pd.read_sql('stock_company_info_2025_04_04', con=conn)
     conn.close()
-    stock_codes = data['종목코드'].apply(lambda x: x+"0")
-    return stock_codes
+    stock_code = data['종목코드'].apply(lambda x: x+"0")
+    return stock_code
+
 
 def to_stock_db(idx, stock_code, stock_name, df):
     """
-    idx, stock_code, stock_name, df를 입력받아
+    idx, stock_code, stock_name, df 를 입력받아
     stock_price_{year}_{month:02d} 형식의 테이블을 mysql에 저장
     """
-    #오늘기준 연도, 달 출력
+    # 오늘기준 연도, 달 출력
     year, month = year_month()
     # Database 쿼리창 오픈
     conn = dbconnect()
-    df.to_sql(f'stock_price_{year}_{month:02d}', con=conn, if_exists="append", index=False)
+    df.to_sql(f'stock_price_{year}_{month:02d}', con=conn,  if_exists="append", index=False)
     conn.close()
-    print(f"{idx+1}/{len(stock_code)} {(stock_name)}DB 저장 완료", end="\r")
+    print(f"{idx}/{len(stock_code)-1} {stock_name}DB 저장 완료", end="\r")
     return 

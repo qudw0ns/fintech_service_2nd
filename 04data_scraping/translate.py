@@ -6,29 +6,31 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
-import pandas as pd
-from sqlalchemy import create_engine, text
-import pymysql
-pymysql.install_as_MySQLdb()
-
-keyword = input("검색어를 입력하세요")
 
 
-options = Options()
-options.add_experimental_option("detach", True)
-options.add_argument("start-maximized")
-options.add_argument("Chrome/134.0.0.0")
-options.add_argument("lang=ko_KR")
+def kor2eng(keyword):
 
+    options = Options()
+    options.add_experimental_option("detach", True)
+    options.add_argument("start-maximized")
+    options.add_argument("Chrome/135.0.0.0")
+    options.add_argument("lang=ko_KR")
+    options.add_argument("--headless")  
+    options.add_argument("--no-sandbox")
+    # options.add_argument("--disable-dev-shm-usage")
 
-driver = webdriver.Chrome(
-    service=Service(ChromeDriverManager().install()),
-    options=options
-    )
-driver.get("https://translate.google.co.kr/?sl=ko&tl=en&op=translate")
-wait = WebDriverWait(driver, 10)
+    driver = webdriver.Chrome(
+        service=Service(ChromeDriverManager().install()),
+        options=options
+        )
 
-search_text_box = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "div > textarea")))
-search_text_box.send_keys(keyword)
-search_text_box.send_keys(Keys.ENTER)
+    url = "https://translate.google.co.kr/?hl=ko&tab=TT&sl=ko&tl=en&op=translate"
+    driver.get(url)
+
+    wait = WebDriverWait(driver, 10)
+    kor_text_box = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "div > textarea")))
+    kor_text_box.send_keys(keyword)
+    kor_text_box.send_keys(Keys.ENTER)
+    translated_box = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "div.lRu31 span.ryNqvb")))
+    
+    return translated_box.text

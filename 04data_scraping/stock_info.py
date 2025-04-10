@@ -2,11 +2,12 @@ import os
 import requests
 import time
 import pandas as pd
-from bs4 import BeautifulSoup as bs
 from datetime import datetime
+from bs4 import BeautifulSoup as bs
 from sqlalchemy import create_engine, text
 import pymysql
 pymysql.install_as_MySQLdb()
+
 company_infos = []
 page = 1
 while True:
@@ -62,18 +63,16 @@ df = pd.DataFrame(company_infos, columns=columns)
 today = datetime.now()
 today = f"{today.year}_{today.month:02d}_{today.day:02d}"
 
-# 폴더 자동생성
+# 폴더 자동생성성
 if not os.path.exists("./scraping_results"):
-    os.mkdir("./scraping_result")
+    os.mkdir("./scraping_results")
 
 df.to_csv(f"./scraping_results/상장기업정보_{today}기준.csv", encoding="utf-8", index=False)
 print(f"./scraping_results/상장기업정보_{today}기준.csv 저장완료!")
-# engine = create_engine("mysql+pymysql://userid:password@ip주소:port/데이터베이스 이름)
-# localhost = 127.0.0.1
+
 engine = create_engine("mysql+pymysql://root:1234@localhost:3306/stock_info")
 # engine.connect create_engine에 있는 정보로 DB접속
 conn = engine.connect() 
-# 데이터프레임을 DB에 저장하기
 # 데이터프레임명.to_sql("테이블명")
 df.to_sql(f"stock_company_info_{today}", con=conn, if_exists='replace', index=False)
 print(f"stock_company_info_{today} 데이터베이스 저장완료!")
